@@ -1,4 +1,4 @@
-from graphene import ObjectType, relay
+from graphene import Node
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
 from .models import Issue, Comment
@@ -9,7 +9,7 @@ class IssueNode(DjangoObjectType):
         filter_fields = {
             'title': ['exact', 'icontains']
         }
-        interfaces = (relay.Node, )
+        interfaces = (Node, )
 
     @classmethod
     def get_node(cls, info, issue_id):
@@ -28,11 +28,11 @@ class CommentNode(DjangoObjectType):
         filter_fields = {
             'message': ['icontains']
         }
-        interfaces = (relay.Node, )
+        interfaces = (Node, )
 
 
 class Query():
-    issue = relay.Node.Field(IssueNode)
+    issue = Node.Field(IssueNode)
     issues = DjangoFilterConnectionField(IssueNode)
 
     comments = DjangoFilterConnectionField(CommentNode)
