@@ -21,9 +21,9 @@ class Query():
         return Issue.objects.all()
 
     def resolve_issue(self, _info, **kwargs):
-        id = kwargs.get("id")
+        issue_id = kwargs.get("id")
 
-        if id is not None:
-            return Issue.objects.get(pk=id)
+        if issue_id is not None:
+            return Issue.objects.get(pk=issue_id)
 
         return None
