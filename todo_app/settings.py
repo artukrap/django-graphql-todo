@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'reversion',
     'graphene_django',
 
-    'issues.apps.IssuesConfig',
+    'issues',
 ]
 
 MIDDLEWARE = [
