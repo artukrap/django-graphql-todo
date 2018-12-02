@@ -11,6 +11,17 @@ class IssueNode(DjangoObjectType):
         }
         interfaces = (relay.Node, )
 
+    @classmethod
+    def get_node(cls, info, issue_id):
+        try:
+            issue = cls._meta.model.objects.get(id=issue_id)
+        except cls._meta.model.DoesNotExist:
+            return None
+
+        if info.context.user == issue.user:
+            return issue
+        return None
+
 class CommentNode(DjangoObjectType):
     class Meta:
         model = Comment
@@ -26,13 +37,8 @@ class Query():
 
     comments = DjangoFilterConnectionField(CommentNode)
 
-    def resolve_issues(self, _info, **kwargs):
-        return Issue.objects.all()
-
-    def resolve_issue(self, _info, **kwargs):
-        issue_id = kwargs.get("id")
-
-        if issue_id is not None:
-            return Issue.objects.get(pk=issue_id)
-
-        return None
+    def resolve_issues(self, info, **kwargs):
+        if info.context.user is None:
+            return Issue.objects.none()
+        else:
+            return Issue.objects.filter(user=info.context.user)
