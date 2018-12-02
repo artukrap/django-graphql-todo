@@ -13,6 +13,11 @@ pylint = "*"
 pylint-django = "*"
 graphene-django = ">=2.0"
 django-filter = "*"
+factory-boy = "*"
+dotmap = "*"
+test = "*"
+snapshottest = "*"
+pytest-django = "*"
 
 [requires]
 python_version = "3.7"
