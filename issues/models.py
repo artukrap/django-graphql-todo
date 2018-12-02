@@ -1,3 +1,4 @@
+"""All models related to issues app"""
 from django.db import models
 
 class Issue(models.Model):
