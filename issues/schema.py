@@ -1,6 +1,5 @@
 from graphene import Node
 from graphene_django import DjangoObjectType
-from graphene_django.filter import DjangoFilterConnectionField
 from .models import Issue, Comment
 
 class IssueNode(DjangoObjectType):
