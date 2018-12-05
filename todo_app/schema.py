@@ -1,8 +1,7 @@
-"""Main app GraphQL schema"""
 import graphene
-import issues.schema
+import issues.query
 
-class Query(issues.schema.Query, graphene.ObjectType):
+class Query(issues.query.Query, graphene.ObjectType):
     pass
 
 SCHEMA = graphene.Schema(query=Query)
