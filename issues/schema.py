@@ -13,6 +13,9 @@ class IssueNode(DjangoObjectType):
 
     @classmethod
     def get_node(cls, info, issue_id):
+        if info.context.user is None:
+            return None
+
         try:
             issue = cls._meta.model.objects.get(id=issue_id)
         except cls._meta.model.DoesNotExist:
@@ -37,7 +40,7 @@ class Query():
 
     comments = DjangoFilterConnectionField(CommentNode)
 
-    def resolve_issues(self, info, **kwargs):
+    def resolve_issues(self, info):
         if info.context.user is None:
             return Issue.objects.none()
         else:
